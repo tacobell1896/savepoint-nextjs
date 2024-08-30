@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +24,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={inter.className}>
+        <Navbar>
+          <NavbarContent>
+            <NavbarItem>
+              <Link href="/">
+                <NavbarBrand>Home</NavbarBrand>
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href="/games">
+                <span>Games</span>
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link href="/notes">
+                <span>Notes</span>
+              </Link>
+            </NavbarItem>
+          </NavbarContent>
+        </Navbar>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
