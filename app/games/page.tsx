@@ -1,10 +1,10 @@
-import GameCard from "./game";
+import GameList from "./game";
 
 export default function Games() {
   return (
     <div>
       <h1>Games</h1>
-      <GameCard />
+      <GameList />
     </div>
   );
 }
