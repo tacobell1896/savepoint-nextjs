@@ -18,16 +18,18 @@ const FormSchema = z.object({
   }),
   description: z.string(),
   image: z.string(),
+  date: z.string(),
 });
 
 export type State = {
   errors?: {
     name?: string[];
+    description?: string[];
   };
   message?: string | null;
 };
 
-const CreateGame = FormSchema.omit({ id: true });
+const CreateGame = FormSchema.omit({ id: true, date: true });
 const UpdateGame = FormSchema.omit({ id: true });
 
 export async function createGame(prevState: State, formData: FormData) {
@@ -38,17 +40,21 @@ export async function createGame(prevState: State, formData: FormData) {
   });
   if (!validatedFields.success) {
     return {
-      errors: validatedFields.error.errors,
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Please correct the errors above.",
     };
   }
   const { name, description, image } = validatedFields.data;
+  const date = new Date().toISOString().split("T")[0];
   try {
-    await sql`INSERT INTO games (name, description, image) VALUES (${name}, ${description}, ${image})`;
+    await sql`INSERT INTO games (name, description, image, date) VALUES (${name}, ${description}, ${image}, ${date})`;
   } catch (error) {
     return {
       message: "An error occurred while creating the game",
     };
   }
+  revalidatePath("/games");
+  redirect("/games");
 }
 
 // TODO: add actions to update and delete games
