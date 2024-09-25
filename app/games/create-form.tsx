@@ -1,10 +1,20 @@
 "use client";
 
-export default function Form() {
+import { createGame } from "@/app/lib/actions";
+import { Game } from "../lib/definitions";
+import { useFormState } from "react-dom";
+import { Button, ButtonGroup } from "@nextui-org/button";
+
+export default function Form({ games }: { games: Game[] }) {
+  const initialState = {
+    message: null,
+    errors: {},
+  };
+  const [state, dispatch] = useFormState(createGame, initialState);
   return (
     <div>
       <h1>Form</h1>
-      <form>
+      <form action={dispatch}>
         <label>
           Name:
           <input type="text" name="name" />
@@ -17,7 +27,7 @@ export default function Form() {
           Image:
           <input type="text" name="image" />
         </label>
-        <input type="submit" value="Submit" />
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

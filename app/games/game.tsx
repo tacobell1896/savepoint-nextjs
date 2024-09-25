@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 import { Game } from "../lib/definitions";
 import games from "../lib/games.json";
+import Form from "./create-form";
 
 export function GameCard({ game: game }) {
   return (
@@ -25,6 +26,7 @@ export default function GameList() {
           <GameCard game={game} />
         </div>
       ))}
+      <Form />
     </div>
   );
 }
