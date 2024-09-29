@@ -4,7 +4,12 @@ import { Game } from "@/app/lib/definitions";
 import games from "@/app/lib/games.json";
 import Form from "./create-form";
 
-export function GameCard({ game: game }) {
+// Define the props type for GameCard
+interface GameCardProps {
+  game: Game;
+}
+
+export function GameCard({ game }: GameCardProps) {
   return (
     <Card className="py-4">
       <CardHeader>
