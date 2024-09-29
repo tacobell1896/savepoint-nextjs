@@ -1,4 +1,4 @@
-"use server";
+'use server'
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
@@ -75,7 +75,7 @@ export type NoteState = {
     content?: string[];
     gameId?: string[];
   };
-  message?: string | null;
+  message?: string | "";
 };
 
 const CreateNote = NoteSchema.omit({ id: true, date: true });

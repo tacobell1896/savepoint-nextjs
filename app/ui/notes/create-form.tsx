@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { GameField } from "@/app/lib/definitions";
 import { createNote } from "@/app/lib/actions";
@@ -6,7 +6,7 @@ import { useFormState } from "react-dom";
 import { Button } from "@nextui-org/react";
 
 export default function Form({ games }: { games: GameField[] }) {
-  const initialState = { message: null, errors: {} };
+  const initialState = { message: '', errors: {} };
   const [state, dispatch] = useFormState(createNote, initialState);
   return (
     <form action={dispatch}>
