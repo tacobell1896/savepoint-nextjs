@@ -8,7 +8,7 @@ import {
   Link,
   Image,
 } from "@nextui-org/react";
-import { Note } from "../lib/definitions";
+import { Note } from "@/app/lib/definitions";
 
 export default function NoteCard({ note: Note }) {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
-import { Game } from "../lib/definitions";
-import games from "../lib/games.json";
+import { Game } from "@/app/lib/definitions";
+import games from "@/app/lib/games.json";
 import Form from "./create-form";
 
 export function GameCard({ game: game }) {

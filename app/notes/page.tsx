@@ -1,12 +1,14 @@
-import NoteCard from "./note";
-import Form from "./create-form";
+import NoteCard from "@/app/ui/notes/note";
+import Form from "@/app/ui/notes/create-form";
+import { getGames } from "@/app/lib/data";
+import games from "@/app/lib/games.json";
 
-export default function Notes() {
+export default async function Page() {
+  // const games = await getGames();
   return (
     <div>
       <h1>Notes</h1>
-      <NoteCard />
-      <Form />
+      <Form games={games} />
     </div>
   );
 }

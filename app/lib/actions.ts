@@ -1,17 +1,11 @@
 "use server";
+
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-// TODO: add actions to get all games and notes for a user
-// get all games
-export async function getGames() {
-  await sql`SELECT * FROM games`;
-}
-export async function getGame(id: string) {
-  await sql`SELECT * FROM games WHERE id = ${id}`;
-}
-const FormSchema = z.object({
+
+const GameSchema = z.object({
   id: z.string(),
   name: z.string({
     invalid_type_error: "Please add a name",
@@ -29,8 +23,8 @@ export type State = {
   message?: string | null;
 };
 
-const CreateGame = FormSchema.omit({ id: true, date: true });
-const UpdateGame = FormSchema.omit({ id: true });
+const CreateGame = GameSchema.omit({ id: true, date: true });
+const UpdateGame = GameSchema.omit({ id: true });
 
 export async function createGame(prevState: State, formData: FormData) {
   const validatedFields = CreateGame.safeParse({
@@ -61,14 +55,57 @@ export async function createGame(prevState: State, formData: FormData) {
 export async function updateGame() {}
 export async function deleteGame() {}
 
-export async function getNotes() {
-  await sql`SELECT * FROM notes`;
-}
-export async function getNote(id: string) {
-  await sql`SELECT * FROM notes WHERE id = ${id}`;
-}
-export async function createNote(title: string, content: string) {
-  await sql`INSERT INTO notes (title, content) VALUES (${title}, ${content})`;
+const NoteSchema = z.object({
+  id: z.string(),
+  title: z.string({
+    invalid_type_error: "Please add a title",
+  }),
+  content: z.string({
+    invalid_type_error: "Please add content",
+  }),
+  gameId: z.string({
+    invalid_type_error: "Please select a game",
+  }),
+  date: z.string(),
+});
+
+export type NoteState = {
+  errors?: {
+    title?: string[];
+    content?: string[];
+    gameId?: string[];
+  };
+  message?: string | null;
+};
+
+const CreateNote = NoteSchema.omit({ id: true, date: true });
+const UpdateNote = NoteSchema.omit({ id: true });
+export async function createNote(prevState: NoteState, formData: FormData) {
+  const validatedFields = CreateNote.safeParse({
+    title: formData.get("title"),
+    content: formData.get("content"),
+    gameId: formData.get("gameId"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Please correct the errors above.",
+    };
+  }
+
+  const { title, content, gameId } = validatedFields.data;
+  const date = new Date().toISOString().split("T")[0];
+
+  try {
+    await sql`INSERT INTO notes (title, content, game_id, date) VALUES (${title}, ${content}, ${gameId}, ${date})`;
+  } catch (error) {
+    return {
+      message: "A database error occurred while creating the note",
+    };
+  }
+  revalidatePath("/notes");
+  redirect("/notes");
 }
 
 // TODO: add actions to update and delete notes

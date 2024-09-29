@@ -1,4 +1,4 @@
-import GameList from "./game";
+import GameList from "@/app/ui/games/game";
 
 export default function Games() {
   return (
