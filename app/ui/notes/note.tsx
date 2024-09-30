@@ -10,7 +10,11 @@ import {
 } from "@nextui-org/react";
 import { Note } from "@/app/lib/definitions";
 
-export default function NoteCard({ note: Note }) {
+interface NoteCardProps {
+  note: Note
+}
+
+export default function NoteCard( {note}: NoteCardProps ) {
   return (
     <Card>
       <CardHeader>
