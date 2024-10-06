@@ -40,7 +40,6 @@ export default function Form({ games }: { games: GameField[] }) {
         Date:
         <input type="date" name="date" />
       </label>
-      <input type="submit" value="Submit" />
       <Button type="submit">Create Note</Button>
     </form>
   );

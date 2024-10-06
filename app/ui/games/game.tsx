@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 import { Game } from "@/app/lib/definitions";
-import games from "@/app/lib/games.json";
 import Form from "./create-form";
+import { getGames } from "@/app/lib/data";
 
 // Define the props type for GameCard
 interface GameCardProps {
@@ -23,7 +23,9 @@ export function GameCard({ game }: GameCardProps) {
   );
 }
 
-export default function GameList() {
+export default async function GameList() {
+  // get games
+  const games = await getGames();
   return (
     <div className="flex gap-4">
       {games.map((game: Game) => (
