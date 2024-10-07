@@ -11,6 +11,19 @@ import {
   Button,
 } from "@nextui-org/react";
 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+
+// TODO: Switch from NextUI to Shadcn
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
