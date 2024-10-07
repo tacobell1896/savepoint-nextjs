@@ -1,13 +1,13 @@
 import React from "react";
 import {
   Card,
-  CardHeader,
-  CardBody,
+  CardContent,
+  CardDescription,
   CardFooter,
-  Divider,
-  Link,
-  Image,
-} from "@nextui-org/react";
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 import { Note } from "@/app/lib/definitions";
 
 interface NoteCardProps {
@@ -18,20 +18,17 @@ export default function NoteCard( {note}: NoteCardProps ) {
   return (
     <Card>
       <CardHeader>
-        <h4>{note.title}</h4>
+        <CardTitle>{note.title}</CardTitle>
       </CardHeader>
-      <CardBody>
+      <CardContent>
+        <CardDescription>
+          <p>{note.content}</p>
+        </CardDescription>
+      </CardContent>
+      <CardFooter>
         <span>{note.create_date}</span>
-        <p>{note.content}</p>
-      </CardBody>
+      </CardFooter>
     </Card>
   );
 }
 
-const note = {
-  id: 1,
-  title: "Note 1",
-  content: "This is the content of note 1",
-  game_id: 1,
-  create_date: "2024-08-30",
-};
