@@ -2,14 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
 
 import {
   NavigationMenu,
@@ -19,8 +11,11 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu"
+import Image from "next/image";
+import Link from "next/link";
 
 // TODO: Switch from NextUI to Shadcn
 
@@ -39,25 +34,26 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <Navbar>
-          <NavbarContent>
-            <NavbarItem>
-              <Link href="/">
-                <NavbarBrand>Home</NavbarBrand>
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link href="/games">
-                <span>Games</span>
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link href="/notes">
-                <span>Notes</span>
-              </Link>
-            </NavbarItem>
-          </NavbarContent>
-        </Navbar>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem >
+                  <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+                    <Image src="/SavePoint.png" alt="SavePoint Logo" width={150} height={150}/>
+                  </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem >
+                <NavigationMenuLink href="/games" className={navigationMenuTriggerStyle()}>
+                  <span >Games</span>
+                </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem >
+                <NavigationMenuLink href="/notes" className={navigationMenuTriggerStyle()}>
+                  <span >Notes</span>
+                </NavigationMenuLink>
+            </NavigationMenuItem>
+</NavigationMenuList>
+        </NavigationMenu>
+
         <Providers>{children}</Providers>
       </body>
     </html>

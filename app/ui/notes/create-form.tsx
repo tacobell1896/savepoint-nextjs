@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
 import { GameField } from "@/app/lib/definitions";
 import { createNote } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
-import { Button } from "@nextui-org/react";
+import { Button } from "@/components/ui/button";
+import { useActionState } from "react";
 
 export default function Form({ games }: { games: GameField[] }) {
   const initialState = { message: '', errors: {} };
-  const [state, dispatch] = useFormState(createNote, initialState);
+  const [state, dispatch] = useActionState(createNote, initialState);
   return (
     <form action={dispatch}>
       <label>
@@ -16,31 +16,34 @@ export default function Form({ games }: { games: GameField[] }) {
       </label>
       <label>
         Contents:
-        <input type="text" name="contents" />
+        <input type="text" name="content" />
       </label>
-      <label>
+      <label htmlFor="gameId">
         Game:
+      </label>
+      <div className="relative">
         <select
-          id="note"
-          name="gameId"
+          title="gameId"
+          name="gameId"  
+          id="gameId"
+          className="peer block" 
           defaultValue=""
-          aria-describedby="note-error"
+          aria-describedby="game-error"
         >
           <option value="" disabled>
             Select a game
           </option>
-          {games?.map((game) => (
+          {games.map((game) => (
             <option key={game.id} value={game.id}>
               {game.name}
             </option>
           ))}
         </select>
-      </label>
-      <label>
-        Date:
-        <input type="date" name="date" />
-      </label>
-      <Button type="submit">Create Note</Button>
+      </div>
+      <div id="game-error">
+        {state.errors?.gameId && <span>{state.errors.gameId}</span>}
+      </div>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }
