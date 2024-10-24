@@ -1,15 +1,15 @@
 'use client'
 
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button } from "@/components/ui/button";
 import { createGame } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 
 export default function Form() {
   const initialState = {
     message: '',
     errors: {},
   };
-  const [state, dispatch] = useFormState(createGame, initialState);
+  const [state, dispatch] = useActionState(createGame, initialState);
   return (
     <form action={dispatch}>
       <label>
