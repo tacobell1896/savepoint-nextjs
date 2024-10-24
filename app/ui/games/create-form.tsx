@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup } from "@nextui-org/button";
+import { Button } from "@/components/ui/button";
 import { createGame } from "@/app/lib/actions";
 import { useActionState } from "react";
 
