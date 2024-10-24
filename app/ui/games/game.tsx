@@ -1,6 +1,5 @@
 'use client';
 import React from "react";
-import { Card, CardHeader, CardBody, Image } from "@nextui-org/react";
 import { Game } from "@/app/lib/definitions";
 
 // Define the props type for GameCard
@@ -10,7 +9,7 @@ interface GameCardProps {
 
 export default function GameCard({ game }: GameCardProps) {
   return (
-    <Card className="py-4">
+/*    <Card className="py-4">
       <CardHeader>
         <Image src={game?.image_url} alt={game?.name} width={300} height={0} />
       </CardHeader>
@@ -19,6 +18,8 @@ export default function GameCard({ game }: GameCardProps) {
         <p>{game?.description}</p>
       </CardBody>
     </Card>
+    */
+   <></>
   );
 }
 
