@@ -1,8 +1,8 @@
-import { useActionState } from "react";
 'use client'
 
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { createGame } from "@/app/lib/actions";
+import { useActionState } from "react";
 
 export default function Form() {
   const initialState = {

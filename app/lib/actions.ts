@@ -12,7 +12,6 @@ const GameSchema = z.object({
   }),
   description: z.string(),
   image: z.string(),
-  date: z.string(),
 });
 
 export type State = {
@@ -23,7 +22,7 @@ export type State = {
   message?: string | null;
 };
 
-const CreateGame = GameSchema.omit({ id: true, date: true });
+const CreateGame = GameSchema.omit({ id: true });
 const UpdateGame = GameSchema.omit({ id: true });
 
 export async function createGame(prevState: State, formData: FormData) {
@@ -38,11 +37,13 @@ export async function createGame(prevState: State, formData: FormData) {
       message: "Please correct the errors above.",
     };
   }
+  console.log(validatedFields.data?.name);
   const { name, description, image } = validatedFields.data;
-  const date = new Date().toISOString().split("T")[0];
   try {
-    await sql`INSERT INTO games (name, description, image, date) VALUES (${name}, ${description}, ${image}, ${date})`;
+    console.log("Trying the insert!");
+    await sql`INSERT INTO games (name, description, image_url) VALUES (${name}, ${description}, ${image})`;
   } catch (error) {
+    console.log(error);
     return {
       message: "An error occurred while creating the game",
     };
