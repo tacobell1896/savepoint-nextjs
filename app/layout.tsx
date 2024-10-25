@@ -17,6 +17,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { ModeToggle } from "./ui/color-scheme-toggle";
+import SignIn from "@/components/sign-in";
 
 // TODO: Switch from NextUI to Shadcn
 
@@ -72,6 +73,7 @@ export default function RootLayout({
                   <span>Notes</span>
                 </NavigationMenuLink>
               </NavigationMenuItem>
+              <SignIn />
             </NavigationMenuList>
           </NavigationMenu>
           <ModeToggle />
