@@ -3,23 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
-import Image from "next/image";
-import Link from "next/link";
 import { ModeToggle } from "./ui/color-scheme-toggle";
-import SignIn from "@/components/sign-in";
-
-// TODO: Switch from NextUI to Shadcn
+import MainNav from "@/components/main-nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,42 +27,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <Image
-                    src="/SavePoint.png"
-                    alt="SavePoint Logo"
-                    width={150}
-                    height={150}
-                  />
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/games"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <span>Games</span>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink
-                  href="/notes"
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <span>Notes</span>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <SignIn />
-            </NavigationMenuList>
-          </NavigationMenu>
-          <ModeToggle />
+          <MainNav />
           {children}
+          <ModeToggle />
         </ThemeProvider>
       </body>
     </html>
