@@ -8,20 +8,35 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getNotes } from "@/app/lib/data";
+import { getGames, getNotes } from "@/app/lib/data";
 import { Note } from "@/app/lib/definitions";
+import Form from "./create-form";
 
-export default function NoteList() {
+export default async function NoteList() {
+  const notes = await getNotes();
   return (
-    <Table>
-      <TableCaption>Notes</TableCaption>
-      <TableHead>Game</TableHead>
-      <TableHead>Date</TableHead>
-      <TableBody>
-        <TableRow>
-          <TableCell>Test</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <div className="flex gap-4">
+      <Table>
+        <TableCaption>Notes</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Game</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Note</TableHead>
+            <TableHead>Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {notes.map((note: Note) => (
+            <TableRow key={note.id}>
+              <TableCell>{note.name}</TableCell>
+              <TableCell>{note.title}</TableCell>
+              <TableCell>{note.content}</TableCell>
+              <TableCell>Test</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }

@@ -20,7 +20,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.31",
     "lucide-react": "^0.447.0",
-    "next": "15.0.1",
+    "next": "^15.0.3",
     "next-auth": "^5.0.0-beta.25",
     "next-themes": "^0.3.0",
     "pg": "^8.13.1",

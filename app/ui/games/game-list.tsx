@@ -1,49 +1,10 @@
 import Form from "./create-form";
-import { getGames } from "@/app/lib/data";
-import { Game } from "@/app/lib/definitions";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import Image from "next/image";
+import GameTable from "./game-table";
 
 export default async function GameList() {
-  // get games
-  const games = await getGames();
   return (
     <div className="flex gap-4">
-      <Table>
-        <TableCaption>A list of all your games you are playing</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Game Name</TableHead>
-            <TableHead>Game Description</TableHead>
-            <TableHead>Cover</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {games.map((game: Game) => (
-            <TableRow key={game.id}>
-              <TableCell>{game.name}</TableCell>
-              <TableCell>{game.description}</TableCell>
-              <TableCell>
-                <Image
-                  src={game?.image_url || "/images/placeholder.png"}
-                  width={100}
-                  height={100}
-                  alt={game.name}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <GameTable />
       <Form />
     </div>
   );
