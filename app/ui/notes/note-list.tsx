@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getGames, getNotes } from "@/app/lib/data";
-import { Note } from "@/app/lib/definitions";
+import { Note, NoteField } from "@/app/lib/definitions";
 import Form from "./create-form";
 
 export default async function NoteList() {
@@ -27,7 +27,7 @@ export default async function NoteList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {notes.map((note: Note) => (
+          {notes.map((note: NoteField) => (
             <TableRow key={note.id}>
               <TableCell>{note.name}</TableCell>
               <TableCell>{note.title}</TableCell>

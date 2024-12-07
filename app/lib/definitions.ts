@@ -32,6 +32,7 @@ export type NoteForm = {
 };
 export type NoteField = {
   id: number;
+  name: string;
   title: string;
   content: string;
   game_id: number;
