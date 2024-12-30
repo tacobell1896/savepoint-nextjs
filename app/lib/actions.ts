@@ -1,5 +1,6 @@
-'use server';
+"use server";
 
+import { auth } from "@/auth";
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
@@ -68,6 +69,9 @@ const NoteSchema = z.object({
     invalid_type_error: "Please select a game",
   }),
   date: z.string(),
+  userId: z.string({
+    invalid_type_error: "User can't be found, please ",
+  }),
 });
 
 export type NoteState = {
@@ -75,6 +79,7 @@ export type NoteState = {
     title?: string[];
     content?: string[];
     gameId?: string[];
+    userId?: string[];
   };
   message?: string | "";
 };
@@ -82,14 +87,14 @@ export type NoteState = {
 const CreateNote = NoteSchema.omit({ id: true, date: true });
 const UpdateNote = NoteSchema.omit({ id: true, date: true });
 export async function createNote(prevState: NoteState, formData: FormData) {
+  const session = await auth();
   console.log("About to create note!");
   const validatedFields = CreateNote.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
     gameId: formData.get("gameId"),
+    userId: session?.user?.id?.toString(),
   });
-  console.log(validatedFields.data?.gameId);
-  console.log(validatedFields.data?.content);
 
   if (!validatedFields.success) {
     console.log("Errors validating");
@@ -100,12 +105,13 @@ export async function createNote(prevState: NoteState, formData: FormData) {
     };
   }
 
-  const { title, content, gameId } = validatedFields.data;
+  const { title, content, gameId, userId } = validatedFields.data;
   const date = new Date().toISOString().split("T")[0];
 
   try {
     console.log("Trying the insert!");
-    await sql`INSERT INTO notes (title, content, game_id, create_date) VALUES (${title}, ${content}, ${gameId}, ${date})`;
+    console.log(userId);
+    await sql`INSERT INTO notes (title, content, game_id, create_date, user_id) VALUES (${title}, ${content}, ${gameId}, ${date}, ${userId})`;
   } catch (error) {
     console.log(error);
     return {

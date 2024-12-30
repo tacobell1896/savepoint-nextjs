@@ -23,7 +23,6 @@ export default async function NoteList() {
             <TableHead>Game</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Note</TableHead>
-            <TableHead>Date</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -32,7 +31,6 @@ export default async function NoteList() {
               <TableCell>{note.name}</TableCell>
               <TableCell>{note.title}</TableCell>
               <TableCell>{note.content}</TableCell>
-              <TableCell>Test</TableCell>
             </TableRow>
           ))}
         </TableBody>
